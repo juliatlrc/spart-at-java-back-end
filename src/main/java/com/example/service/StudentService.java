@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.entity.ClassroomEntity;
 import com.example.entity.StudentEntity;
 import com.example.repository.StudentRepository;
 
@@ -24,6 +25,18 @@ public class StudentService {
         if (students.containsKey(id)) {
             students.put(id, student);
         }
+    }
+
+    public static void addStudent(String classroomId, StudentEntity student) {
+        // Adicione lógica para associar o aluno à turma aqui
+        ClassroomEntity classroom = ClassroomService.getClassroomById(classroomId);
+        if (classroom != null) {
+            classroom.addStudent(student);
+            ClassroomService.updateClassroom(classroomId, classroom); // Atualize a turma com o novo aluno
+        }
+
+        // Adicione o aluno ao mapa de alunos
+        students.put(student.getId(), student);
     }
 
     public static void deleteStudent(String id) {

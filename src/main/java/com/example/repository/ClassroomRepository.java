@@ -19,6 +19,21 @@ public class ClassroomRepository {
         classroom2.addStudent(StudentRepository.getStudentById("3"));
         classroom2.addStudent(StudentRepository.getStudentById("4"));
         classrooms.put("2", classroom2);
+
+        ClassroomEntity classroom3 = new ClassroomEntity("3", "Turma C", TeacherRepository.getTeacherById("3"));
+        classroom3.addStudent(StudentRepository.getStudentById("5"));
+        classroom3.addStudent(StudentRepository.getStudentById("6"));
+        classrooms.put("3", classroom3);
+
+        ClassroomEntity classroom4 = new ClassroomEntity("4", "Turma D", TeacherRepository.getTeacherById("4"));
+        classroom4.addStudent(StudentRepository.getStudentById("7"));
+        classroom4.addStudent(StudentRepository.getStudentById("8"));
+        classrooms.put("4", classroom4);
+
+        ClassroomEntity classroom5 = new ClassroomEntity("5", "Turma E", TeacherRepository.getTeacherById("5"));
+        classroom5.addStudent(StudentRepository.getStudentById("9"));
+        classroom5.addStudent(StudentRepository.getStudentById("10"));
+        classrooms.put("5", classroom5);
     }
 
     public static ClassroomEntity getClassroomById(String id) {

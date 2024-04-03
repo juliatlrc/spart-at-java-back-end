@@ -9,6 +9,10 @@ import com.example.service.StudentService;
 import com.example.service.TeacherService;
 import com.example.service.ClassroomService;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static spark.Spark.*;
 
 public class ControllerSpark {
@@ -86,6 +90,14 @@ public class ControllerSpark {
                 return "Aluno adicionado com sucesso";
             });
 
+            post("/:classroomId", (req, res) -> {
+                String classroomId = req.params(":classroomId");
+                StudentEntity student = gson.fromJson(req.body(), StudentEntity.class);
+                StudentService.addStudent(classroomId, student);
+                res.status(201);
+                return "Aluno adicionado com sucesso";
+            });
+
             put("/:id", (req, res) -> {
                 String id = req.params(":id");
                 StudentEntity student = gson.fromJson(req.body(), StudentEntity.class);
@@ -157,6 +169,15 @@ public class ControllerSpark {
                     res.status(404);
                     return "Turma não encontrada";
                 }
+            });
+
+            get("/students", (req, res) -> {
+                List<StudentEntity> allStudents = new ArrayList<>();
+                for (ClassroomEntity classroom : ClassroomService.getAllClassrooms().values()) {
+                    allStudents.addAll(classroom.getStudents());
+                }
+                res.type("application/json");
+                return gson.toJson(allStudents);
             });
 
             post("", (req, res) -> {
